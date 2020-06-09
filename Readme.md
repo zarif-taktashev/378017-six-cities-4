@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Zarif Taktashev](https://up.htmlacademy.ru/react/4/user/378017).
-* Наставник: `Неизвестно`.
+* Наставник: [Вадим Атрощенко](https://htmlacademy.ru/profile/id1351257).
 
 ---
 
