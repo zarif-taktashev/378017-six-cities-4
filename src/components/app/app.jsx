@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import MainComponent from "../main/main-component.jsx";
 
+const mainHandler = () => {};
 
 const App = (props) => {
   const {placesQuantity, offers} = props;
   return (
-    <MainComponent placesQuantity={placesQuantity} offers={offers} />
+    <MainComponent onMainHandler={mainHandler} placesQuantity={placesQuantity} offers={offers} />
   );
 };
 

@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MainComponent = (props) => {
-  const {placesQuantity, offers} = props;
+  const {placesQuantity, offers, onMainHandler} = props;
 
   return <div className="page page--gray page--main">
-    <header className="header">
+    <header className="header" onClick={onMainHandler}>
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
@@ -143,7 +143,8 @@ const MainComponent = (props) => {
 
 MainComponent.propTypes = {
   placesQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.string.isRequired)
+  offers: PropTypes.arrayOf(PropTypes.string.isRequired),
+  onMainHandler: PropTypes.func.isRequired
 };
 
 export default MainComponent;
