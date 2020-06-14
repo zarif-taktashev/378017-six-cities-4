@@ -6,7 +6,15 @@ const Settings = {
   PLACES: 315
 };
 
+const offers = [
+  `Beautiful &amp; luxurious apartment at great location`,
+  `Wood and stone place`,
+  `Canal View Prinsengracht`,
+  `Nice, cozy, warm big bed apartment`,
+  `Wood and stone place`,
+];
+
 ReactDOM.render(
-    <App placesQuantity={Settings.PLACES} />,
+    <App placesQuantity={Settings.PLACES} offers={offers} />,
     document.querySelector(`#root`)
 );
