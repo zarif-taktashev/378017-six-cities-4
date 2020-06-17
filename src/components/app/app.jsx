@@ -1,14 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MainComponent from "../main/main-component.jsx";
+import Main from "../main/main.jsx";
 
-
-const App = (props) => {
-  const {placesQuantity, offers} = props;
-  return (
-    <MainComponent placesQuantity={placesQuantity} offers={offers} />
-  );
-};
+const App = ({placesQuantity, offers}) => (
+  <Main onMainHandler={() => {}} placesQuantity={placesQuantity} offers={offers} />
+);
 
 App.propTypes = {
   placesQuantity: PropTypes.number.isRequired,
