@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import CardList from "./cardList.jsx";
 
 const offers = [
   {
@@ -40,10 +40,8 @@ const offers = [
 describe(`main-test`, () => {
   it(`Main unit test`, () => {
     const tree = renderer
-      .create(<Main
-        placesQuantity={315}
-        offers={offers}
-        onMainHandler={() => {}} />)
+      .create(<CardList
+        offers={offers} />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
