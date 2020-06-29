@@ -8,7 +8,14 @@ const App = ({placesQuantity, offers}) => (
 
 App.propTypes = {
   placesQuantity: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf(PropTypes.string.isRequired)
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    costs: PropTypes.number.isRequired,
+    banner: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    rate: PropTypes.number.isRequired,
+  })).isRequired
 };
 
 
