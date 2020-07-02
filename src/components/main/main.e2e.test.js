@@ -12,33 +12,37 @@ const offers = [
     img: `img/apartment-01.jpg`,
     premium: true,
     costs: 120,
-    banner: `1 Beautiful great location`,
+    banner: `1 Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
-    rate: 80
+    rate: 80,
+    coordinates: [52.3909553943508, 4.85309666406198]
   },
   {
     img: `img/apartment-02.jpg`,
     premium: false,
     costs: 50,
-    banner: `2 Beautiful`,
+    banner: `2 Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
-    rate: 70
+    rate: 70,
+    coordinates: [52.369553943508, 4.85309666406198]
   },
   {
     img: `img/apartment-03.jpg`,
     premium: true,
     costs: 80,
-    banner: `luxurious apartment at great location`,
+    banner: `3 Beautiful & luxurious apartment at great location`,
     type: `Private room`,
-    rate: 20
+    rate: 20,
+    coordinates: [52.3909553943508, 4.929309666406198]
   },
   {
     img: `img/apartment-01.jpg`,
     premium: false,
     costs: 10,
-    banner: `great location`,
+    banner: `4 Beautiful & luxurious apartment at great location`,
     type: `Private room`,
-    rate: 50
+    rate: 50,
+    coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
 

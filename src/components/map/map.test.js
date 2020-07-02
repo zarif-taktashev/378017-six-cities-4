@@ -1,4 +1,9 @@
-export default [
+import React from "react";
+import renderer from "react-test-renderer";
+import Map from "./map.jsx";
+import leaflet from "leaflet";
+
+const offers = [
   {
     img: `img/apartment-01.jpg`,
     premium: true,
@@ -36,3 +41,15 @@ export default [
     coordinates: [52.3809553943508, 4.939309666406198]
   }
 ];
+
+describe(`map-test`, () => {
+  it(`Map unit test`, () => {
+    const tree = renderer
+      .create(<Map
+        offers={offers}
+      />)
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+});

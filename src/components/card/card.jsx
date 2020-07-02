@@ -57,6 +57,7 @@ Card.propTypes = {
     banner: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired,
   onCardHandler: PropTypes.func.isRequired
 };
