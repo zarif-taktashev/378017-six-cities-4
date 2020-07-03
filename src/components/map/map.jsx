@@ -34,11 +34,9 @@ class Map extends PureComponent {
 
       map.setView(city, zoom);
 
-      for (let i = 0; i < this.props.offers.length; i++) {
-        leaflet
-        .marker(this.props.offers[i].coordinates, {icon})
-        .addTo(map);
-      }
+      this.props.offers.forEach((offer) => {
+        leaflet.marker(offer.coordinates, {icon}).addTo(map);
+      });
     }
   }
 
