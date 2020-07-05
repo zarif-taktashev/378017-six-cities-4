@@ -97,7 +97,7 @@ exports[`main-test Main unit test 1`] = `
         <a
           href="#"
         >
-          1 Beautiful great location
+          1 Beautiful & luxurious apartment at great location
         </a>
       </h2>
       <p
@@ -193,7 +193,7 @@ exports[`main-test Main unit test 1`] = `
         <a
           href="#"
         >
-          2 Beautiful
+          2 Beautiful & luxurious apartment at great location
         </a>
       </h2>
       <p
@@ -296,7 +296,7 @@ exports[`main-test Main unit test 1`] = `
         <a
           href="#"
         >
-          luxurious apartment at great location
+          3 Beautiful & luxurious apartment at great location
         </a>
       </h2>
       <p
@@ -392,7 +392,7 @@ exports[`main-test Main unit test 1`] = `
         <a
           href="#"
         >
-          great location
+          4 Beautiful & luxurious apartment at great location
         </a>
       </h2>
       <p

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CardList from "../cardList/cardList.jsx";
+import Map from "../map/map.jsx";
 
 const MainComponent = (props) => {
   const {placesQuantity, offers, onMainHandler} = props;
@@ -98,7 +99,7 @@ const MainComponent = (props) => {
               <CardList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers}/>
             </div>
           </div>
         </div>
@@ -116,6 +117,7 @@ MainComponent.propTypes = {
     banner: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   })).isRequired,
   onMainHandler: PropTypes.func.isRequired
 };
