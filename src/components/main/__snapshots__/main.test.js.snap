@@ -73,6 +73,7 @@ exports[`main-test Main unit test 1`] = `
       >
         <ul
           className="locations__list tabs__list"
+          onClick={[Function]}
         >
           <li
             className="locations__item"
@@ -80,41 +81,6 @@ exports[`main-test Main unit test 1`] = `
             <a
               className="locations__item-link tabs__item"
               href="#"
-            >
-              <span>
-                Paris
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Cologne
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Brussels
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item tabs__item--active"
             >
               <span>
                 Amsterdam
@@ -125,23 +91,11 @@ exports[`main-test Main unit test 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item tabs__item--active"
               href="#"
             >
               <span>
-                Hamburg
-              </span>
-            </a>
-          </li>
-          <li
-            className="locations__item"
-          >
-            <a
-              className="locations__item-link tabs__item"
-              href="#"
-            >
-              <span>
-                Dusseldorf
+                Paris
               </span>
             </a>
           </li>
@@ -165,8 +119,9 @@ exports[`main-test Main unit test 1`] = `
           <b
             className="places__found"
           >
-            315
-             places to stay in Amsterdam
+            4
+             places to stay in 
+            Paris
           </b>
           <form
             action="#"
@@ -318,7 +273,7 @@ exports[`main-test Main unit test 1`] = `
                   <a
                     href="#"
                   >
-                    1 Beautiful & luxurious apartment at great location
+                    Paris 1 Beautiful & luxurious apartment at great location
                   </a>
                 </h2>
                 <p
@@ -414,7 +369,7 @@ exports[`main-test Main unit test 1`] = `
                   <a
                     href="#"
                   >
-                    2 Beautiful & luxurious apartment at great location
+                    Paris 2 Beautiful & luxurious apartment at great location
                   </a>
                 </h2>
                 <p
@@ -517,7 +472,7 @@ exports[`main-test Main unit test 1`] = `
                   <a
                     href="#"
                   >
-                    3 Beautiful & luxurious apartment at great location
+                    Paris 3 Beautiful & luxurious apartment at great location
                   </a>
                 </h2>
                 <p
@@ -613,7 +568,7 @@ exports[`main-test Main unit test 1`] = `
                   <a
                     href="#"
                   >
-                    4 Beautiful & luxurious apartment at great location
+                    Paris Beautiful & luxurious apartment at great location
                   </a>
                 </h2>
                 <p

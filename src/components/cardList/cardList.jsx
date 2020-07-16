@@ -19,7 +19,6 @@ class CardList extends PureComponent {
 
   render() {
     const offers = this.props.offers;
-
     return (
       <div className="cities__places-list places__list tabs__content">
         {offers.map((offer) => {
@@ -42,7 +41,7 @@ CardList.propTypes = {
     type: PropTypes.string.isRequired,
     rate: PropTypes.number.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
-  })).isRequired
+  })).isRequired,
 };
 
 export default CardList;
