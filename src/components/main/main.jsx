@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from 'react-redux';
 import CardList from "../cardList/cardList.jsx";
 import Map from "../map/map.jsx";
+import Tower from "../towers/towers.jsx";
+import {ActionCreator} from "../../reducer.js";
 
 const MainComponent = (props) => {
-  const {placesQuantity, offers, onMainHandler} = props;
+  const {offers, onSelectCity, activeCity, onMainHandler} = props;
+  const filteredOffers = offers.filter((item) => item.city === activeCity)[0];
+  const towers = offers.map((item) => item.city);
 
   return (
     <div className="page page--gray page--main">
-      <header className="header" onClick={onMainHandler}>
+      <header onClick={onMainHandler} className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
@@ -35,45 +40,14 @@ const MainComponent = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <Tower towers={towers} onSelectCity={onSelectCity} activeCity={filteredOffers.city} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesQuantity} places to stay in Amsterdam</b>
+              <b className="places__found">{filteredOffers.offersList.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -96,10 +70,10 @@ const MainComponent = (props) => {
                 </select> */}
               </form>
 
-              <CardList offers={offers} />
+              <CardList offers={filteredOffers.offersList} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers}/>
+              <Map offers={filteredOffers.offersList}/>
             </div>
           </div>
         </div>
@@ -109,17 +83,36 @@ const MainComponent = (props) => {
 };
 
 MainComponent.propTypes = {
-  placesQuantity: PropTypes.number.isRequired,
+  onSelectCity: PropTypes.func.isRequired,
+  onMainHandler: PropTypes.func.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
-    img: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired,
-    costs: PropTypes.number.isRequired,
-    banner: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    rate: PropTypes.number.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+    city: PropTypes.string.isRequired,
+    offersList: PropTypes.arrayOf(PropTypes.shape({
+      img: PropTypes.string.isRequired,
+      premium: PropTypes.bool.isRequired,
+      costs: PropTypes.number.isRequired,
+      banner: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      rate: PropTypes.number.isRequired,
+      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
+    })).isRequired
   })).isRequired,
-  onMainHandler: PropTypes.func.isRequired
+  activeCity: PropTypes.string.isRequired
 };
 
-export default MainComponent;
+const mapStateToProps = (state) => {
+  return {
+    offers: state.offers,
+    activeCity: state.activeCity
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSelectCity: (city) => {
+    dispatch(ActionCreator.selectCity(city));
+  }
+});
+
+export {MainComponent};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);
