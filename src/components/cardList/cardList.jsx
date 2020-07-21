@@ -1,36 +1,19 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Card from "../card/card.jsx";
 
-class CardList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      active: {}
-    };
-
-    this.handleChoosenCard = this.handleChoosenCard.bind(this);
-  }
-
-  handleChoosenCard(target) {
-    this.setState({active: target});
-  }
-
-  render() {
-    const offers = this.props.offers;
-    return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => {
-          return (<Card key={offer.banner}
-            offer={offer}
-            onCardHandler={this.handleChoosenCard}
-          />);
-        })}
-      </div>
-    );
-  }
-}
+const CardList = ({offers, handleChoosenCard}) => {
+  return (
+    <div className="cities__places-list places__list tabs__content">
+      {offers.map((offer) => {
+        return (<Card key={offer.banner}
+          offer={offer}
+          onCardHandler={handleChoosenCard}
+        />);
+      })}
+    </div>
+  );
+};
 
 CardList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
@@ -42,6 +25,7 @@ CardList.propTypes = {
     rate: PropTypes.number.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   })).isRequired,
+  handleChoosenCard: PropTypes.func.isRequired
 };
 
 export default CardList;

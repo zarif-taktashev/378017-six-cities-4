@@ -45,7 +45,8 @@ describe(`main-test`, () => {
   it(`Main unit test`, () => {
     const tree = renderer
       .create(<CardList
-        offers={offers} />)
+        offers={offers}
+        handleChoosenCard={() => {}} />)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

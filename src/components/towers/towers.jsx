@@ -1,36 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Tower from "../tower/tower.jsx";
 
-const Tower = (props) => {
+const LIST_TAG = `UL`;
+
+const Towers = (props) => {
   const {towers, onSelectCity, activeCity} = props;
 
   return (
     <ul onClick={(evt) => {
-      onSelectCity(evt.target.innerText);
+      if (evt.target.tagName !== LIST_TAG) {
+        onSelectCity(evt.target.innerText);
+      }
     }} className="locations__list tabs__list">
       {towers.map((item, index) => {
-        let className = `locations__item-link tabs__item`;
-
-        if (item === activeCity) {
-          className += ` tabs__item--active`;
-        }
-
         return (
-          <li key={index} className="locations__item">
-            <a className={className} href="#">
-              <span>{item}</span>
-            </a>
-          </li>
+          <Tower key={index} towerInf={item} activeCity={activeCity} />
         );
       })}
     </ul>
   );
 };
 
-Tower.propTypes = {
+Towers.propTypes = {
   towers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   onSelectCity: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired
 };
 
-export default Tower;
+export default Towers;
