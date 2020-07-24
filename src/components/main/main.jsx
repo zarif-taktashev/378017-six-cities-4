@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from 'react-redux';
 import CardList from "../cardList/cardList.jsx";
+import withCardList from "../../hocs/with-card-list/with-card-list";
 import Map from "../map/map.jsx";
 import Tower from "../towers/towers.jsx";
 import {ActionCreator} from "../../reducer.js";
+
+const WithCardList = withCardList(CardList);
 
 const MainComponent = (props) => {
   const {offers, onSelectCity, activeCity, onMainHandler} = props;
@@ -70,7 +73,7 @@ const MainComponent = (props) => {
                 </select> */}
               </form>
 
-              <CardList offers={filteredOffers.offersList} />
+              <WithCardList offers={filteredOffers.offersList} />
             </section>
             <div className="cities__right-section">
               <Map offers={filteredOffers.offersList}/>

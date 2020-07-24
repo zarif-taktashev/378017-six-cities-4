@@ -1,14 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Tower from "./towers.jsx";
-
-const offers = [`Amsterdam`, `Paris`];
+import Tower from "./tower.jsx";
 
 describe(`Towers-test`, () => {
   it(`Towers unit test`, () => {
     const tree = renderer
       .create(<Tower
-        towers={offers}
+        towerInformation={`Paris`}
         onSelectCity={() => {}}
         activeCity={`Paris`}
       />)

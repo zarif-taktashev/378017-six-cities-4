@@ -1,12 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CardList from "./cardList.jsx";
+import PropTypes from "prop-types";
+import withCardList from "./with-card-list.js";
 
 const offers = [
   {
     img: `img/apartment-01.jpg`,
     premium: true,
     costs: 120,
+    city: `Amsterdam`,
     banner: `1 Beautiful & luxurious apartment at great location`,
     type: `Apartment`,
     rate: 80,
@@ -41,14 +43,23 @@ const offers = [
   }
 ];
 
-describe(`main-test`, () => {
-  it(`Main unit test`, () => {
-    const tree = renderer
-      .create(<CardList
-        offers={offers}
-        onHandleChosenCard={() => {}} />)
-      .toJSON();
+const MockComponent = () => {
+  return (
+    <div />
+  );
+};
 
-    expect(tree).toMatchSnapshot();
-  });
+const MockComponentWrapped = withCardList(MockComponent);
+
+it(`withCardList is rendered correctly`, () => {
+  const tree = renderer.create((
+    <MockComponentWrapped
+      isPlaying={false}
+      offers={offers}
+      onPlayButtonClick={() => {}}
+      src={``}
+    />
+  )).toJSON();
+
+  expect(tree).toMatchSnapshot();
 });

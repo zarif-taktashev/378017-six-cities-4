@@ -73,7 +73,6 @@ exports[`app-test App unit test 1`] = `
       >
         <ul
           className="locations__list tabs__list"
-          onClick={[Function]}
         >
           <li
             className="locations__item"
@@ -81,6 +80,7 @@ exports[`app-test App unit test 1`] = `
             <a
               className="locations__item-link tabs__item tabs__item--active"
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Amsterdam
@@ -91,8 +91,9 @@ exports[`app-test App unit test 1`] = `
             className="locations__item"
           >
             <a
-              className="locations__item-link tabs__item"
+              className="locations__item-link tabs__item "
               href="#"
+              onClick={[Function]}
             >
               <span>
                 Paris
