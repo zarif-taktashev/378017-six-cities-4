@@ -10,10 +10,10 @@ const withCardList = (Component) => {
         active: {}
       };
 
-      this.handleChoosenCard = this.handleChoosenCard.bind(this);
+      this.onHandleChosenCard = this.onHandleChosenCard.bind(this);
     }
 
-    handleChoosenCard(target) {
+    onHandleChosenCard(target) {
       this.setState({active: target});
     }
 
@@ -21,7 +21,7 @@ const withCardList = (Component) => {
       return (
         <Component
           {...this.props}
-          handleChoosenCard={this.handleChoosenCard}
+          onHandleChosenCard={this.onHandleChosenCard}
         />
       );
     }

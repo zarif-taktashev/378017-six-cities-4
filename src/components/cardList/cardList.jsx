@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import Card from "../card/card.jsx";
 
-const CardList = ({offers, handleChoosenCard}) => {
+const CardList = ({offers, onHandleChosenCard}) => {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => {
-        return (<Card key={offer.banner}
+        return (<Card
+          key={offer.banner}
           offer={offer}
-          onCardHandler={handleChoosenCard}
+          onCardHandler={onHandleChosenCard}
         />);
       })}
     </div>
@@ -25,7 +26,7 @@ CardList.propTypes = {
     rate: PropTypes.number.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   })).isRequired,
-  handleChoosenCard: PropTypes.func.isRequired
+  onHandleChosenCard: PropTypes.func.isRequired
 };
 
 export default CardList;
