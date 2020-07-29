@@ -5,7 +5,6 @@ import Tower from "../tower/tower.jsx";
 
 const Towers = (props) => {
   const {towers, onSelectCity, activeCity} = props;
-
   return (
     <ul className="locations__list tabs__list">
       {towers.map((item, index) => {
