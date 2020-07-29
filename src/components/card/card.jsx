@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Card = (props) => {
-  const {img, rate, banner, type, costs, premium} = props.offer;
+  const {previewImage, rating, title, type, price, isPremium} = props.offer;
 
   const onCardMouseMove = (evt) => {
     evt.preventDefault();
@@ -11,19 +11,19 @@ const Card = (props) => {
 
   return (
     <article onMouseOver={onCardMouseMove} className="cities__place-card place-card">
-      {premium &&
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={img} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{costs}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -35,12 +35,12 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: rate + `%`}}></span>
+            <span style={{width: rating + `%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{banner}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -51,13 +51,38 @@ const Card = (props) => {
 
 Card.propTypes = {
   offer: PropTypes.shape({
-    img: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired,
-    costs: PropTypes.number.isRequired,
-    banner: PropTypes.string.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    rate: PropTypes.number.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   }).isRequired,
   onCardHandler: PropTypes.func.isRequired
 };

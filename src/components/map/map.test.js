@@ -3,51 +3,47 @@ import renderer from "react-test-renderer";
 import Map from "./map.jsx";
 import leaflet from "leaflet";
 
-const offers = [
-  {
-    img: `img/apartment-01.jpg`,
-    premium: true,
-    costs: 120,
-    banner: `1 Beautiful & luxurious apartment at great location`,
-    type: `Apartment`,
-    rate: 80,
-    coordinates: [52.3909553943508, 4.85309666406198]
+const offers = [{
+  bedrooms: 5,
+  city: {
+    name: `Amsterdam`,
+    location: {
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13
+    }
   },
-  {
-    img: `img/apartment-02.jpg`,
-    premium: false,
-    costs: 50,
-    banner: `2 Beautiful & luxurious apartment at great location`,
-    type: `Apartment`,
-    rate: 70,
-    coordinates: [52.369553943508, 4.85309666406198]
+  description: `I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.`,
+  goods: [`Laptop friendly workspace`],
+  host: {
+    id: 25, name: `Angelina`, isPro: true, avatarUrl: `img/avatar-angelina.jpg`
   },
-  {
-    img: `img/apartment-03.jpg`,
-    premium: true,
-    costs: 80,
-    banner: `3 Beautiful & luxurious apartment at great location`,
-    type: `Private room`,
-    rate: 20,
-    coordinates: [52.3909553943508, 4.929309666406198]
+  id: 1,
+  images: [`https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/20.jpg`],
+  isFavorite: false,
+  isPremium: false,
+  location: {
+    latitude: 52.385540000000006,
+    longitude: 4.886976,
+    zoom: 16
   },
-  {
-    img: `img/apartment-01.jpg`,
-    premium: false,
-    costs: 10,
-    banner: `4 Beautiful & luxurious apartment at great location`,
-    type: `Private room`,
-    rate: 50,
-    coordinates: [52.3809553943508, 4.939309666406198]
-  }
-];
+  maxAdults: 6,
+  previewImage: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg`,
+  price: 813,
+  rating: 2.4,
+  title: `Wood and stone place`,
+  type: `house`,
+}];
 
 describe(`map-test`, () => {
   it(`Map unit test`, () => {
     const tree = renderer
       .create(<Map
         offers={offers}
-      />)
+      />,
+      {
+        createNodeMock: () => document.createElement(`div`)
+      })
       .toJSON();
 
     expect(tree).toMatchSnapshot();

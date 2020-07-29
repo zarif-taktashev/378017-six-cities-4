@@ -4,16 +4,14 @@ import {connect} from 'react-redux';
 import CardList from "../cardList/cardList.jsx";
 import withCardList from "../../hocs/with-card-list/with-card-list";
 import Map from "../map/map.jsx";
-import Tower from "../towers/towers.jsx";
+import Towers from "../towers/towers.jsx";
 import {ActionCreator} from "../../reducer.js";
 
 const WithCardList = withCardList(CardList);
 
 const MainComponent = (props) => {
-  const {offers, onSelectCity, activeCity, onMainHandler} = props;
-  const filteredOffers = offers.filter((item) => item.city === activeCity)[0];
-  const towers = offers.map((item) => item.city);
-
+  const {offers, onSelectCity, activeCity, onMainHandler, towers} = props;
+  const filteredOffers = offers.filter((item) => item.city.name === activeCity);
   return (
     <div className="page page--gray page--main">
       <header onClick={onMainHandler} className="header">
@@ -43,14 +41,14 @@ const MainComponent = (props) => {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <Tower towers={towers} onSelectCity={onSelectCity} activeCity={filteredOffers.city} />
+            {!!towers && <Towers towers={towers} onSelectCity={onSelectCity} activeCity={activeCity} />}
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.offersList.length} places to stay in {activeCity}</b>
+              <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -73,10 +71,10 @@ const MainComponent = (props) => {
                 </select> */}
               </form>
 
-              <WithCardList offers={filteredOffers.offersList} />
+              {!!filteredOffers.length && <WithCardList offers={filteredOffers} />}
             </section>
             <div className="cities__right-section">
-              <Map offers={filteredOffers.offersList}/>
+              {!!filteredOffers.length && <Map offers={filteredOffers}/>}
             </div>
           </div>
         </div>
@@ -88,25 +86,49 @@ const MainComponent = (props) => {
 MainComponent.propTypes = {
   onSelectCity: PropTypes.func.isRequired,
   onMainHandler: PropTypes.func.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  towers: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.string.isRequired,
-    offersList: PropTypes.arrayOf(PropTypes.shape({
-      img: PropTypes.string.isRequired,
-      premium: PropTypes.bool.isRequired,
-      costs: PropTypes.number.isRequired,
-      banner: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      rate: PropTypes.number.isRequired,
-      coordinates: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
-    })).isRequired
-  })).isRequired,
-  activeCity: PropTypes.string.isRequired
+    bedrooms: PropTypes.number.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired
+      }).isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    description: PropTypes.string.isRequired,
+    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+    host: PropTypes.shape({
+      avatarUrl: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired
+    }).isRequired,
+    id: PropTypes.number.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }).isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  })).isRequired
 };
 
 const mapStateToProps = (state) => {
   return {
     offers: state.offers,
-    activeCity: state.activeCity
+    activeCity: state.activeCity,
+    towers: state.towers
   };
 };
 
