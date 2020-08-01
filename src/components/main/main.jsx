@@ -1,41 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from 'react-redux';
 import CardList from "../cardList/cardList.jsx";
 import withCardList from "../../hocs/with-card-list/with-card-list";
 import Map from "../map/map.jsx";
 import Towers from "../towers/towers.jsx";
-import {ActionCreator} from "../../reducer.js";
+import Header from "../header/header.jsx";
 
 const WithCardList = withCardList(CardList);
 
 const MainComponent = (props) => {
-  const {offers, onSelectCity, activeCity, onMainHandler, towers} = props;
+  const {offers, onSelectCity, activeCity, onMainHandler, towers, authorizationStatus} = props;
   const filteredOffers = offers.filter((item) => item.city.name === activeCity);
   return (
     <div className="page page--gray page--main">
-      <header onClick={onMainHandler} className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header onMainHandler={onMainHandler} authorizationStatus={authorizationStatus} />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -71,10 +49,10 @@ const MainComponent = (props) => {
                 </select> */}
               </form>
 
-              {!!filteredOffers.length && <WithCardList offers={filteredOffers} />}
+              {!!offers.length && <WithCardList offers={offers} />}
             </section>
             <div className="cities__right-section">
-              {!!filteredOffers.length && <Map offers={filteredOffers}/>}
+              {!!offers.length && <Map offers={offers}/>}
             </div>
           </div>
         </div>
@@ -85,6 +63,7 @@ const MainComponent = (props) => {
 
 MainComponent.propTypes = {
   onSelectCity: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   onMainHandler: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -124,20 +103,4 @@ MainComponent.propTypes = {
   })).isRequired
 };
 
-const mapStateToProps = (state) => {
-  return {
-    offers: state.offers,
-    activeCity: state.activeCity,
-    towers: state.towers
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSelectCity: (city) => {
-    dispatch(ActionCreator.selectCity(city));
-  }
-});
-
 export {MainComponent};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainComponent);

@@ -35,6 +35,7 @@ const offers = [{
 }];
 
 const activeCity = `Paris`;
+const authorizationStatus = `AUTH`;
 
 describe(`main-test`, () => {
   it(`Main unit test`, () => {
@@ -44,6 +45,7 @@ describe(`main-test`, () => {
         onMainHandler={() => {}}
         offers={offers}
         activeCity={activeCity}
+        authorizationStatus={authorizationStatus}
         towers={[`Paris`, `Hamburg`, `Amsterdam`]}
       />,
       {
