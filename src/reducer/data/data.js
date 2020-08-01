@@ -21,6 +21,7 @@ const Operations = {
     return api.get(`/hotels`)
       .then((response) => {
         dispatch(ActionCreator.loadHotels(response.data.map((item) => offerAdapter(item))));
+        return response.data[0].city.name;
       });
   }
 };

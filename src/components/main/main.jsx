@@ -5,6 +5,7 @@ import withCardList from "../../hocs/with-card-list/with-card-list";
 import Map from "../map/map.jsx";
 import Towers from "../towers/towers.jsx";
 import Header from "../header/header.jsx";
+import {offerProp} from "../../const.js";
 
 const WithCardList = withCardList(CardList);
 
@@ -67,40 +68,7 @@ MainComponent.propTypes = {
   onMainHandler: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    bedrooms: PropTypes.number.isRequired,
-    city: PropTypes.shape({
-      location: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
-        longitude: PropTypes.number.isRequired,
-        zoom: PropTypes.number.isRequired
-      }).isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired,
-    description: PropTypes.string.isRequired,
-    goods: PropTypes.arrayOf(PropTypes.string).isRequired,
-    host: PropTypes.shape({
-      avatarUrl: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      isPro: PropTypes.bool.isRequired,
-      name: PropTypes.string.isRequired
-    }).isRequired,
-    id: PropTypes.number.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    }).isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-  })).isRequired
+  offers: offerProp.offers
 };
 
 export {MainComponent};
