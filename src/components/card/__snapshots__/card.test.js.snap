@@ -41,9 +41,10 @@ exports[`Card-test Card Snapshot test 1`] = `
           / night
         </span>
       </div>
-      <button
-        className="place-card__bookmark-button button"
-        type="button"
+      <a
+        className="place-card__bookmark-button  button"
+        href="/login"
+        onClick={[Function]}
       >
         <svg
           className="place-card__bookmark-icon"
@@ -59,7 +60,7 @@ exports[`Card-test Card Snapshot test 1`] = `
         >
           To bookmarks
         </span>
-      </button>
+      </a>
     </div>
     <div
       className="place-card__rating rating"

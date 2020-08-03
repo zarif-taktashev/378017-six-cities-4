@@ -56,6 +56,9 @@ describe(`app-test`, () => {
           onSelectCity={onSelectCity}
           authorizationStatus={authorizationStatus}
           activeCity={activeCity}
+          onLoginSubmit={() => {}}
+          onFavoriteOfferClick={() => {}}
+          favoriteHotels={offers}
           towers={towers}
           offers={offers} />
       </Provider>,

@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main-test Main unit test 1`] = `
+exports[`sign-test Sign unit test 1`] = `
 <div
   className="page page--gray page--login"
 >
   <header
     className="header"
+    onClick={[Function]}
   >
     <div
       className="container"
@@ -17,8 +18,7 @@ exports[`main-test Main unit test 1`] = `
           className="header__left"
         >
           <a
-            className="header__logo-link"
-            href="main.html"
+            className="header__logo-link header__logo-link--active"
           >
             <img
               alt="6 cities logo"
@@ -40,13 +40,14 @@ exports[`main-test Main unit test 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
                 />
                 <span
-                  className="header__login"
+                  className="header__user-name user__name"
                 >
                   Sign in
                 </span>
@@ -75,6 +76,7 @@ exports[`main-test Main unit test 1`] = `
           action="#"
           className="login__form form"
           method="post"
+          onSubmit={[Function]}
         >
           <div
             className="login__input-wrapper form__input-wrapper"

@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import CardList from "./cardList.jsx";
+import {Router} from 'react-router-dom';
+import history from '../../history';
 
 const offers = [{
   bedrooms: 5,
@@ -37,9 +39,13 @@ const offers = [{
 describe(`main-test`, () => {
   it(`Main unit test`, () => {
     const tree = renderer
-      .create(<CardList
-        offers={offers}
-        onHandleChosenCard={() => {}} />)
+      .create(
+          <Router history={history}>
+            <CardList
+              offers={offers}
+              onFavoriteOfferClick={() => {}}
+              onHandleChosenCard={() => {}} />
+          </Router>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {MainComponent} from "./main.jsx";
+import {Router} from 'react-router-dom';
+import history from '../../history';
 
 const offers = [{
   bedrooms: 5,
@@ -40,14 +42,20 @@ const authorizationStatus = `AUTH`;
 describe(`main-test`, () => {
   it(`Main unit test`, () => {
     const tree = renderer
-      .create(<MainComponent
-        onSelectCity={() => {}}
-        onMainHandler={() => {}}
-        offers={offers}
-        activeCity={activeCity}
-        authorizationStatus={authorizationStatus}
-        towers={[`Paris`, `Hamburg`, `Amsterdam`]}
-      />,
+      .create(
+          <Router
+            history={history}
+          >
+            <MainComponent
+              onSelectCity={() => {}}
+              onMainHandler={() => {}}
+              onFavoriteOfferClick={() => {}}
+              offers={offers}
+              activeCity={activeCity}
+              authorizationStatus={authorizationStatus}
+              towers={[`Paris`, `Hamburg`, `Amsterdam`]}
+            />
+          </Router>,
       {
         createNodeMock: () => document.createElement(`div`)
       })

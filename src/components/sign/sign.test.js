@@ -1,12 +1,18 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import {Sign} from "./sign.jsx";
+import {Router} from 'react-router-dom';
+import history from '../../history';
 
-describe(`main-test`, () => {
-  it(`Main unit test`, () => {
+describe(`sign-test`, () => {
+  it(`Sign unit test`, () => {
     const tree = renderer
-      .create(<Sign
-      />)
+      .create(
+          <Router
+            history={history}
+          >
+            <Sign onLoginSubmit={() => {}}/>
+          </Router>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();

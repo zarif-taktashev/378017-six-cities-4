@@ -40,7 +40,8 @@ exports[`main-test Main unit test 1`] = `
             >
               <a
                 className="header__nav-link header__nav-link--profile"
-                href="#"
+                href="/login"
+                onClick={[Function]}
               >
                 <div
                   className="header__avatar-wrapper user__avatar-wrapper"
@@ -48,7 +49,7 @@ exports[`main-test Main unit test 1`] = `
                 <span
                   className="header__user-name user__name"
                 >
-                  Oliver.conner@gmail.com
+                  Sign in
                 </span>
               </a>
             </li>
@@ -234,9 +235,10 @@ exports[`main-test Main unit test 1`] = `
                       / night
                     </span>
                   </div>
-                  <button
-                    className="place-card__bookmark-button button"
-                    type="button"
+                  <a
+                    className="place-card__bookmark-button  button"
+                    href="/login"
+                    onClick={[Function]}
                   >
                     <svg
                       className="place-card__bookmark-icon"
@@ -252,7 +254,7 @@ exports[`main-test Main unit test 1`] = `
                     >
                       To bookmarks
                     </span>
-                  </button>
+                  </a>
                 </div>
                 <div
                   className="place-card__rating rating"
