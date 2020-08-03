@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Favorites from "./favorites.jsx";
 import {Router} from 'react-router-dom';
+import Favorites from "./favorites.jsx";
 import history from '../../history';
 
 const favoriteHotels = [{

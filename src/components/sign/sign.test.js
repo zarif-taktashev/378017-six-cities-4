@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Sign} from "./sign.jsx";
 import {Router} from 'react-router-dom';
+import {Sign} from "./sign.jsx";
 import history from '../../history';
 
 describe(`sign-test`, () => {

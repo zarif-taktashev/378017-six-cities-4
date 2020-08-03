@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MainComponent} from "./main.jsx";
 import {Router} from 'react-router-dom';
+import {MainComponent} from "./main.jsx";
 import history from '../../history';
 
 const offers = [{

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {offerProp, AppRoute, userProps} from "../../const.js";
 import {Link} from 'react-router-dom';
+import {offerProp, AppRoute, userProps} from "../../const.js";
+
 
 const Card = (props) => {
   const {previewImage, rating, title, type, price, isPremium, id, isFavorite} = props.offer;

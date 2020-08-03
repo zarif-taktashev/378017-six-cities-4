@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Map from "./map.jsx";
 import leaflet from "leaflet";
+import Map from "./map.jsx";
 
 const offers = [{
   bedrooms: 5,
