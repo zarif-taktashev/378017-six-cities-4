@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-
+import {Link} from 'react-router-dom';
+import {userProps, AppRoute} from "../../const.js";
 
 const Header = (props) => {
-  const {onMainHandler, authorizationStatus} = props;
+  const {onMainHandler, user} = props;
 
   return (
     <header onClick={onMainHandler} className="header">
@@ -18,12 +18,11 @@ const Header = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
+                <Link className="header__nav-link header__nav-link--profile" to={user ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  {authorizationStatus === AuthorizationStatus.AUTH && <span className="header__user-name user__name">Oliver.conner@gmail.com</span>}
-                  {authorizationStatus === AuthorizationStatus.NO_AUTH && <span className="header__login">Sign in</span>}
-                </a>
+                  <span className="header__user-name user__name">{user ? user.mail : `Sign in`}</span>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -35,7 +34,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   onMainHandler: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
+  user: userProps.user,
 };
 
 export default Header;

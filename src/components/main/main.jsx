@@ -5,16 +5,16 @@ import withCardList from "../../hocs/with-card-list/with-card-list";
 import Map from "../map/map.jsx";
 import Towers from "../towers/towers.jsx";
 import Header from "../header/header.jsx";
-import {offerProp} from "../../const.js";
+import {offerProp, userProps} from "../../const.js";
 
 const WithCardList = withCardList(CardList);
 
 const MainComponent = (props) => {
-  const {offers, onSelectCity, activeCity, onMainHandler, towers, authorizationStatus} = props;
+  const {offers, onSelectCity, activeCity, onMainHandler, towers, user, onFavoriteOfferClick} = props;
   const filteredOffers = offers.filter((item) => item.city.name === activeCity);
   return (
     <div className="page page--gray page--main">
-      <Header onMainHandler={onMainHandler} authorizationStatus={authorizationStatus} />
+      <Header onMainHandler={onMainHandler} user={user} />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -50,7 +50,7 @@ const MainComponent = (props) => {
                 </select> */}
               </form>
 
-              {!!offers.length && <WithCardList offers={offers} />}
+              {!!offers.length && <WithCardList user={user} onFavoriteOfferClick={onFavoriteOfferClick} offers={offers} />}
             </section>
             <div className="cities__right-section">
               {!!offers.length && <Map offers={offers}/>}
@@ -64,11 +64,12 @@ const MainComponent = (props) => {
 
 MainComponent.propTypes = {
   onSelectCity: PropTypes.func.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
   onMainHandler: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  offers: offerProp.offers
+  offers: offerProp.offers,
+  onFavoriteOfferClick: PropTypes.func.isRequired,
+  user: userProps.user
 };
 
 export {MainComponent};

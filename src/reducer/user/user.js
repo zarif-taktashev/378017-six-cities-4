@@ -13,7 +13,7 @@ export const ResponseStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  user: {}
+  user: null
 };
 
 const ActionType = {
@@ -71,8 +71,8 @@ const Operations = {
     })
     .then((response) => {
       if (response.status === ResponseStatus.SUCCESS) {
-        const convertUser = userData(response.data);
-        dispatch(ActionCreator.setUser(convertUser));
+        const user = userData(response.data);
+        dispatch(ActionCreator.setUser(user));
       }
     })
     .then(() => {

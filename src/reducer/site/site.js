@@ -1,7 +1,7 @@
 import {extend} from "../../utils.js";
 
 const initialState = {
-  activeCity: `Amsterdam`,
+  activeCity: ``,
 };
 
 const ActionType = {

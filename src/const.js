@@ -71,4 +71,26 @@ const offerProp = {
   }).isRequired,
 };
 
-export {offerProp};
+const userProps = {
+  user: PropTypes.shape({
+    avatarUrl: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.number,
+    isPro: PropTypes.bool,
+    name: PropTypes.string,
+  }),
+};
+
+const AppRoute = {
+  LOGIN: `/login`,
+  MAIN: `/`,
+  FAVORITES: `/favorites`
+};
+
+
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export {offerProp, AppRoute, AuthorizationStatus, userProps};

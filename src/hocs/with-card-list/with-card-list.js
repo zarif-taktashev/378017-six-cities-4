@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
-import {offerProp} from "../../const";
+import PropTypes from "prop-types";
+import {offerProp, userProps} from "../../const";
 
 const withCardList = (Component) => {
   class WithCardList extends PureComponent {
@@ -28,7 +29,9 @@ const withCardList = (Component) => {
   }
 
   WithCardList.propTypes = {
-    offers: offerProp.offers
+    offers: offerProp.offers,
+    user: userProps.user,
+    onFavoriteOfferClick: PropTypes.func.isRequired,
   };
 
   return WithCardList;
