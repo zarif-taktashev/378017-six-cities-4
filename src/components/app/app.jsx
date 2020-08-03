@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from 'react-redux';
+import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {MainComponent} from "../main/main.jsx";
 import {Sign} from "../sign/sign.jsx";
 import Favorites from "../favorites/favorites.jsx";
-import {connect} from 'react-redux';
-import {Switch, Route, Router, Redirect} from "react-router-dom";
 import {ActionCreator as SiteCreator} from "../../reducer/site/site.js";
 import {getTowers, getHotelsByCity, getFavoriteHotels} from "../../reducer/data/selectors.js";
 import {Operations as DataOperation} from "../../reducer/data/data.js";
