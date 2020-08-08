@@ -46,6 +46,7 @@ it(`withCardList is rendered correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped
       offers={offers}
+      onTitleClick={() => {}}
       onFavoriteOfferClick={() => {}}
     />
   )).toJSON();

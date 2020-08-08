@@ -3,8 +3,13 @@ import leaflet from "leaflet";
 import {offerProp} from "../../const.js";
 
 const icon = leaflet.icon({
-  iconUrl: `img/pin.svg`,
+  iconUrl: `/img/pin.svg`,
   iconSize: [30, 30]
+});
+
+const activeMarker = leaflet.icon({
+  iconUrl: `img/pin-active.svg`,
+  iconSize: [20, 30]
 });
 
 class Map extends PureComponent {
@@ -19,6 +24,16 @@ class Map extends PureComponent {
   componentDidUpdate(prevProps) {
     if (prevProps.offers[0].city.name !== this.props.offers[0].city.name) {
       this.viewCenterCity();
+      this.renderPins();
+    }
+
+    if (prevProps.offer && prevProps.offer.id !== this.props.offer.id) {
+      this._markers.clearLayers();
+      this.renderPins();
+    }
+
+    if (prevProps.offer && this.props.offers.every((item) => item.id !== prevProps.offer.id)) {
+      this._markers.clearLayers();
       this.renderPins();
     }
   }
@@ -41,10 +56,20 @@ class Map extends PureComponent {
   }
 
   renderPins() {
-    const {offers} = this.props;
+    const {offers, offer} = this.props;
     this._markers = leaflet.layerGroup().addTo(this._map);
+    if (offer) {
+      const coordinates = [offer.location.latitude, offer.location.longitude];
+      leaflet.marker(coordinates, {activeMarker}).addTo(this._markers);
+    }
 
     offers.forEach((item) => {
+      if (offer && offer.id === item.id) {
+        const coordinates = [item.location.latitude, item.location.longitude];
+        leaflet.marker(coordinates, {activeMarker}).addTo(this._markers);
+        return;
+      }
+
       const coordinates = [item.location.latitude, item.location.longitude];
       leaflet.marker(coordinates, {icon}).addTo(this._markers);
     });
@@ -66,7 +91,6 @@ class Map extends PureComponent {
     });
 
     this._map.setView(city, zoom);
-
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
@@ -78,12 +102,13 @@ class Map extends PureComponent {
 
   render() {
     return (
-      <section ref={this.sectiontRef} id="map" className="cities__map map"></section>
+      <section ref={this.sectiontRef} id="map" className="property__map map"></section>
     );
   }
 }
 
 Map.propTypes = {
+  offer: offerProp.HoverOffer,
   offers: offerProp.offers
 };
 

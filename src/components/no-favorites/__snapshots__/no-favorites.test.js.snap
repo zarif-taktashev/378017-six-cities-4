@@ -45,7 +45,7 @@ Array [
         alt="6 cities logo"
         className="footer__logo"
         height="33"
-        src="img/logo.svg"
+        src="/img/logo.svg"
         width="64"
       />
     </a>

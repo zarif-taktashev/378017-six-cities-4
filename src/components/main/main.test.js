@@ -48,6 +48,10 @@ describe(`main-test`, () => {
           >
             <MainComponent
               onSelectCity={() => {}}
+              onCardHover={() => {}}
+              sortType={`Popular`}
+              onTitleClick={() => {}}
+              onSortChange={() => {}}
               onMainHandler={() => {}}
               onFavoriteOfferClick={() => {}}
               offers={offers}

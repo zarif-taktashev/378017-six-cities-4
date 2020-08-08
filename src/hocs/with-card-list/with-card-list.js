@@ -31,6 +31,8 @@ const withCardList = (Component) => {
   WithCardList.propTypes = {
     offers: offerProp.offers,
     user: userProps.user,
+    onCardHover: PropTypes.func,
+    onTitleClick: PropTypes.func.isRequired,
     onFavoriteOfferClick: PropTypes.func.isRequired,
   };
 

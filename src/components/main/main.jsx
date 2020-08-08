@@ -2,15 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import CardList from "../cardList/cardList.jsx";
 import withCardList from "../../hocs/with-card-list/with-card-list";
+import withSorting from '../../hocs/with-sorting/with-sorting.js';
 import Map from "../map/map.jsx";
+import Sorting from '../sorting/sorting.jsx';
 import Towers from "../towers/towers.jsx";
 import Header from "../header/header.jsx";
-import {offerProp, userProps} from "../../const.js";
+import MainEmpty from "../main-empty/main-empty.jsx";
+import {offerProp, userProps, sortOffers} from "../../const.js";
 
 const WithCardList = withCardList(CardList);
+const SortingWrapper = withSorting(Sorting);
 
 const MainComponent = (props) => {
-  const {offers, onSelectCity, activeCity, onMainHandler, towers, user, onFavoriteOfferClick} = props;
+  const {offers, onSelectCity, activeCity, onMainHandler, towers, user, onCardHover, onFavoriteOfferClick, onTitleClick, hoverOffer, sortType, onSortChange} = props;
   const filteredOffers = offers.filter((item) => item.city.name === activeCity);
   return (
     <div className="page page--gray page--main">
@@ -24,38 +28,25 @@ const MainComponent = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-                {/* <select className="places__sorting-type" id="places-sorting">
-                  <option className="places__option" value="popular" selected="">Popular</option>
-                  <option className="places__option" value="to-high">Price: low to high</option>
-                  <option className="places__option" value="to-low">Price: high to low</option>
-                  <option className="places__option" value="top-rated">Top rated first</option>
-                </select> */}
-              </form>
-
-              {!!offers.length && <WithCardList user={user} onFavoriteOfferClick={onFavoriteOfferClick} offers={offers} />}
-            </section>
-            <div className="cities__right-section">
-              {!!offers.length && <Map offers={offers}/>}
-            </div>
-          </div>
+          {offers.length ?
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
+                <SortingWrapper
+                  sortType={sortType}
+                  onSortChange={onSortChange}
+                />
+                {!!offers.length && <WithCardList user={user} onCardHover={onCardHover} onTitleClick={onTitleClick} onFavoriteOfferClick={onFavoriteOfferClick} offers={sortOffers(offers, sortType)} />}
+              </section>
+              <div className="cities__right-section">
+                {!!offers.length && <Map offer={hoverOffer} offers={offers}/>}
+              </div>
+            </div> :
+            <MainEmpty
+              currentCity={activeCity}
+            />
+          }
         </div>
       </main>
     </div>
@@ -64,8 +55,13 @@ const MainComponent = (props) => {
 
 MainComponent.propTypes = {
   onSelectCity: PropTypes.func.isRequired,
+  hoverOffer: offerProp.HoverOffer,
+  onCardHover: PropTypes.func.isRequired,
+  onTitleClick: PropTypes.func.isRequired,
   onMainHandler: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
+  onSortChange: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: offerProp.offers,
   onFavoriteOfferClick: PropTypes.func.isRequired,

@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Card from "./card.jsx";
 import {Router} from 'react-router-dom';
+import Card from "./card.jsx";
 import history from '../../history';
+
 
 const offer = {
   bedrooms: 5,
@@ -45,6 +46,7 @@ describe(`Card-test`, () => {
             <Card
               offer={offer}
               onFavoriteOfferClick={() => {}}
+              onTitleClick={() => {}}
               onCardHandler={onCardHandler} />
           </Router>
       )

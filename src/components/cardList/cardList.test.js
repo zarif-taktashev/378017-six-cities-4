@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import CardList from "./cardList.jsx";
 import {Router} from 'react-router-dom';
+import CardList from "./cardList.jsx";
 import history from '../../history';
 
 const offers = [{
@@ -43,6 +43,7 @@ describe(`main-test`, () => {
           <Router history={history}>
             <CardList
               offers={offers}
+              onTitleClick={() => {}}
               onFavoriteOfferClick={() => {}}
               onHandleChosenCard={() => {}} />
           </Router>)

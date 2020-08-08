@@ -36,6 +36,21 @@ const offers = [{
   type: `house`,
 }];
 
+const reviews = [
+  {
+    id: 1,
+    user: {
+      avatar: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg`,
+      id: 1,
+      super: true,
+      name: `Wood and stone place`
+    },
+    rating: 1,
+    date: `20.03.02`,
+    comment: `Done`,
+  }
+];
+
 const api = createAPI(() => {});
 
 describe(`test work Reducer`, () => {
@@ -53,12 +68,47 @@ describe(`test work Reducer`, () => {
       offers
     });
   });
+
+  it(`Reducer should change reviews`, () => {
+    expect(reducer({
+      reviews: [],
+    }, {
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews
+    })).toEqual({
+      reviews
+    });
+  });
+
+  it(`Reducer should change near offer`, () => {
+    expect(reducer({
+      nearOffers: [],
+    }, {
+      type: ActionType.LOAD_NEAR_OFFERS,
+      payload: offers
+    })).toEqual({
+      nearOffers: offers
+    });
+  });
 });
 
 describe(`test work Action Creators`, () => {
   it(`Action creator for offers returns correct action`, () => {
     expect(ActionCreator.loadHotels(offers)).toEqual({
       type: ActionType.LOAD_HOTEL,
+      payload: offers,
+    });
+  });
+  it(`Action creator for reviews returns correct action`, () => {
+    expect(ActionCreator.loadReviews(reviews)).toEqual({
+      type: ActionType.LOAD_REVIEWS,
+      payload: reviews,
+    });
+  });
+
+  it(`Action creator for nearOffers offer returns correct action`, () => {
+    expect(ActionCreator.loadNearOffers(offers)).toEqual({
+      type: ActionType.LOAD_NEAR_OFFERS,
       payload: offers,
     });
   });
@@ -80,6 +130,25 @@ describe(`test work Operation`, () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_HOTEL,
           payload: offers,
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /comments`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operations.loadReviews(3);
+
+    apiMock
+      .onGet(`/comments/3`)
+      .reply(200, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
         });
       });
   });

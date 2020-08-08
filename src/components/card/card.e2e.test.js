@@ -46,6 +46,8 @@ describe(`card-e2e`, () => {
     const mainComp = shallow(
         <Card
           offer={offer}
+          onCardHover={() => {}}
+          onTitleClick={() => {}}
           onFavoriteOfferClick={() => {}}
           onCardHandler={onCardHandler}
         />

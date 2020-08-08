@@ -19,12 +19,14 @@ exports[`main-test Main unit test 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -150,7 +152,8 @@ exports[`main-test Main unit test 1`] = `
             </span>
             <span
               className="places__sorting-type"
-              tabIndex="0"
+              onClick={[Function]}
+              tabIndex={0}
             >
               Popular
               <svg
@@ -164,29 +167,33 @@ exports[`main-test Main unit test 1`] = `
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom "
             >
               <li
                 className="places__option places__option--active"
-                tabIndex="0"
+                onClick={[Function]}
+                tabIndex={0}
               >
                 Popular
               </li>
               <li
-                className="places__option"
-                tabIndex="0"
-              >
-                Price: low to high
-              </li>
-              <li
-                className="places__option"
-                tabIndex="0"
+                className="places__option "
+                onClick={[Function]}
+                tabIndex={0}
               >
                 Price: high to low
               </li>
               <li
-                className="places__option"
-                tabIndex="0"
+                className="places__option "
+                onClick={[Function]}
+                tabIndex={0}
+              >
+                Price: low to high
+              </li>
+              <li
+                className="places__option "
+                onClick={[Function]}
+                tabIndex={0}
               >
                 Top rated first
               </li>
@@ -265,7 +272,7 @@ exports[`main-test Main unit test 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "2.4%",
+                          "width": "48%",
                         }
                       }
                     />
@@ -280,7 +287,8 @@ exports[`main-test Main unit test 1`] = `
                   className="place-card__name"
                 >
                   <a
-                    href="#"
+                    href="/offer/1"
+                    onClick={[Function]}
                   >
                     Wood and stone place
                   </a>
@@ -298,7 +306,7 @@ exports[`main-test Main unit test 1`] = `
           className="cities__right-section"
         >
           <section
-            className="cities__map map"
+            className="property__map map"
             id="map"
           />
         </div>

@@ -71,7 +71,7 @@ exports[`Card-test Card Snapshot test 1`] = `
         <span
           style={
             Object {
-              "width": "2.4%",
+              "width": "48%",
             }
           }
         />
@@ -86,7 +86,8 @@ exports[`Card-test Card Snapshot test 1`] = `
       className="place-card__name"
     >
       <a
-        href="#"
+        href="/offer/1"
+        onClick={[Function]}
       >
         Wood and stone place
       </a>

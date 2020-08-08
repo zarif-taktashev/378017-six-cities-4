@@ -19,12 +19,14 @@ exports[`Favorites-test Favorites unit test 1`] = `
         >
           <a
             className="header__logo-link header__logo-link--active"
+            href="/"
+            onClick={[Function]}
           >
             <img
               alt="6 cities logo"
               className="header__logo"
               height="41"
-              src="img/logo.svg"
+              src="/img/logo.svg"
               width="81"
             />
           </a>
@@ -167,7 +169,7 @@ exports[`Favorites-test Favorites unit test 1`] = `
                       <span
                         style={
                           Object {
-                            "width": "2.4%",
+                            "width": "48%",
                           }
                         }
                       />
@@ -182,7 +184,8 @@ exports[`Favorites-test Favorites unit test 1`] = `
                     className="place-card__name"
                   >
                     <a
-                      href="#"
+                      href="/offer/1"
+                      onClick={[Function]}
                     >
                       Wood and stone place
                     </a>
@@ -212,7 +215,7 @@ exports[`Favorites-test Favorites unit test 1`] = `
         alt="6 cities logo"
         className="footer__logo"
         height="33"
-        src="img/logo.svg"
+        src="/img/logo.svg"
         width="64"
       />
     </a>

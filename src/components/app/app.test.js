@@ -43,6 +43,21 @@ const offers = [{
   type: `house`,
 }];
 
+const reviews = [
+  {
+    id: 1,
+    user: {
+      avatar: `https://htmlacademy-react-3.appspot.com/six-cities/static/hotel/15.jpg`,
+      id: 1,
+      super: true,
+      name: `Wood and stone place`
+    },
+    rating: 1,
+    date: `20.03.02`,
+    comment: `Done`,
+  }
+];
+
 describe(`app-test`, () => {
   it(`App unit test`, () => {
     const store = mockStore({
@@ -57,6 +72,14 @@ describe(`app-test`, () => {
           onSelectCity={onSelectCity}
           authorizationStatus={authorizationStatus}
           activeCity={activeCity}
+          onTitleClick={() => {}}
+          isBlocked={true}
+          nearOffers={offers}
+          sortType={`Popular`}
+          reviews={reviews}
+          onSortChange={() => {}}
+          onReviewSubmit={() => {}}
+          onCardHover={() => {}}
           onLoginSubmit={() => {}}
           onFavoriteOfferClick={() => {}}
           favoriteHotels={offers}

@@ -51,6 +51,7 @@ describe(`Favorites-test`, () => {
           <Router history={history}>
             <Favorites
               favoriteHotels={favoriteHotels}
+              onTitleClick={() => {}}
               onFavoriteOfferClick={() => {}}
               user={user}
             />

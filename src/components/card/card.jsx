@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
 import {offerProp, AppRoute, userProps} from "../../const.js";
 
-
 const Card = (props) => {
   const {previewImage, rating, title, type, price, isPremium, id, isFavorite} = props.offer;
 
   const onCardMouseMove = (evt) => {
     evt.preventDefault();
+    props.onCardHover(props.offer);
     props.onCardHandler(props.offer);
   };
 
@@ -40,12 +40,12 @@ const Card = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: rating + `%`}}></span>
+            <span style={{width: rating * 20 + `%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.OFFER}/${id}`} onClick={() => props.onTitleClick(props.offer)}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -56,8 +56,10 @@ const Card = (props) => {
 
 Card.propTypes = {
   offer: offerProp.offer,
+  onTitleClick: PropTypes.func.isRequired,
   onFavoriteOfferClick: PropTypes.func.isRequired,
   onCardHandler: PropTypes.func,
+  onCardHover: PropTypes.func,
   user: userProps.user
 };
 
