@@ -8,20 +8,18 @@ class Sign extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.loginRef = React.createRef();
-    this.passwordRef = React.createRef();
-
     this.onHandleSubmit = this.onHandleSubmit.bind(this);
   }
 
   onHandleSubmit(evt) {
     const {onLoginSubmit} = this.props;
+    let formData = new FormData(evt.currentTarget);
 
     evt.preventDefault();
 
     onLoginSubmit({
-      login: this.loginRef.current.value,
-      password: this.passwordRef.current.value,
+      login: formData.get(`email`),
+      password: formData.get(`password`),
     });
   }
 
@@ -36,11 +34,11 @@ class Sign extends React.PureComponent {
               <form className="login__form form" action="#" method="post" onSubmit={this.onHandleSubmit}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" ref={this.loginRef} placeholder="Email" required="" />
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" ref={this.passwordRef} placeholder="Password" required="" />
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" />
                 </div>
                 <button className="login__submit form__submit button" type="submit">Sign in</button>
               </form>
