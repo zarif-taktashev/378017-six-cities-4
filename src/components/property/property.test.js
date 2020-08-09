@@ -59,6 +59,7 @@ it(`check render Property`, () => {
         <Property
           onTitleClick={() => {}}
           onMainHandler={() => {}}
+          onCardHover={() => {}}
           onFavoriteOfferClick={() => {}}
           isBlocked={true}
           onReviewSubmit={() => {}}

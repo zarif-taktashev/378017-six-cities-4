@@ -103,7 +103,7 @@ exports[`check render Property 1`] = `
               onClick={[Function]}
             >
               <svg
-                className="property__bookmark-icon"
+                className="place-card__bookmark-icon"
                 height="33"
                 width="31"
               >
