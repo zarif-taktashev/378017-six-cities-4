@@ -69,6 +69,8 @@ const App = (props) => {
                 user={user}
                 favoriteHotels={favoriteHotels}
                 onFavoriteOfferClick={onFavoriteOfferClick}
+                onCardHover={onCardHover}
+                onTitleClick={onTitleClick}
               />
             );
           }}

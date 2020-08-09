@@ -37,9 +37,9 @@ const Property = (props) => {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ? <div className="property__mark">
+              {isPremium && <div className="property__mark">
                 <span>Premium</span>
-              </div> : null}
+              </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -48,7 +48,7 @@ const Property = (props) => {
                   to={props.user ? {} : AppRoute.LOGIN}
                   onClick={props.user ? () => props.onFavoriteOfferClick(id, isFavorite) : null}
                 >
-                  <svg className="property__bookmark-icon" width="31" height="33">
+                  <svg className="place-card__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>

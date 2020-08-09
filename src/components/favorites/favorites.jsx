@@ -24,7 +24,7 @@ const Favorites = (props) => {
         user={user}
       />
 
-      {sortFavoriteHotels.length && sortFavoriteHotels[0].offers !== [] ?
+      {sortFavoriteHotels.length ?
         <React.Fragment>
           <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">

@@ -1,6 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import leaflet from "leaflet";
 import Map from "./map.jsx";
 
 const offers = [{

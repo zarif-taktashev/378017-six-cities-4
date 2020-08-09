@@ -60,9 +60,9 @@ describe(`main-test`, () => {
               towers={[`Paris`, `Hamburg`, `Amsterdam`]}
             />
           </Router>,
-      {
-        createNodeMock: () => document.createElement(`div`)
-      })
+          {
+            createNodeMock: () => document.createElement(`div`)
+          })
       .toJSON();
 
     expect(tree).toMatchSnapshot();
