@@ -13,12 +13,16 @@ export const ResponseStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  user: null
+  user: null,
+  loginError: ``,
+  isLoad: true
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  SET_USER: `SET_USER`
+  SET_USER: `SET_USER`,
+  SET_LOGIN_ERROR: `SET_LOGIN_ERROR`,
+  CHECK_LOADING: `CHECK_LOADING`
 };
 
 const ActionCreator = {
@@ -34,6 +38,18 @@ const ActionCreator = {
       payload: status,
     };
   },
+  setLoginError: (status) => {
+    return {
+      type: ActionType.SET_LOGIN_ERROR,
+      payload: status,
+    };
+  },
+  checkLoading: (status) => {
+    return {
+      type: ActionType.CHECK_LOADING,
+      payload: status,
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +61,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_USER:
       return Object.assign({}, state, {
         user: action.payload,
+      });
+    case ActionType.CHECK_LOADING:
+      return Object.assign({}, state, {
+        isLoad: action.payload,
+      });
+    case ActionType.SET_LOGIN_ERROR:
+      return Object.assign({}, state, {
+        loginError: action.payload,
       });
   }
 
@@ -58,10 +82,18 @@ const Operations = {
         if (response.status === ResponseStatus.SUCCESS) {
           const convertUser = userData(response.data);
           dispatch(ActionCreator.setUser(convertUser));
+          dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+          dispatch(ActionCreator.checkLoading(false));
         }
       })
-      .then(() => {
-        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      .catch((err) => {
+        dispatch(ActionCreator.checkLoading(false));
+        dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+        dispatch(ActionCreator.setLoginError(`You not login`));
+        setTimeout(() => {
+          dispatch(ActionCreator.setLoginError(``));
+        }, 5000);
+        throw err;
       });
   },
   login: (authData) => (dispatch, getState, api) => {
@@ -77,6 +109,14 @@ const Operations = {
     })
     .then(() => {
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+    })
+    .catch((err) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+      dispatch(ActionCreator.setLoginError(err.message));
+      setTimeout(() => {
+        dispatch(ActionCreator.setLoginError(``));
+      }, 5000);
+      throw err;
     });
   }
 };

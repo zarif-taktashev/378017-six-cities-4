@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as renderer from 'react-test-renderer';
 import {Router} from 'react-router-dom';
-import Property from './property.jsx';
+import {Property} from './property.jsx';
 import history from '../../history';
 
 const offers = [{
@@ -59,6 +59,8 @@ it(`check render Property`, () => {
         <Property
           onTitleClick={() => {}}
           onMainHandler={() => {}}
+          openedOfferId={`1`}
+          offers={offers}
           onCardHover={() => {}}
           onFavoriteOfferClick={() => {}}
           isBlocked={true}

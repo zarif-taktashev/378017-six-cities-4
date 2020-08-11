@@ -3,6 +3,7 @@ import {reducer, ActionCreator, ActionType, initialState, Operations} from "./da
 import {createAPI} from '../../api';
 import {postAdapter} from "../../adapter/offers.js";
 
+const EmptyStr = ``;
 
 const offers = [{
   bedrooms: 5,
@@ -69,6 +70,35 @@ describe(`test work Reducer`, () => {
     });
   });
 
+  it(`Reducer should change favoriteHotels`, () => {
+    expect(reducer({
+      favoriteHotels: [],
+    }, {
+      type: ActionType.LOAD_FAVORITE_HOTELS,
+      payload: offers
+    })).toEqual({
+      favoriteHotels: offers
+    });
+  });
+
+  it(`Reducer should change Bloked Form`, () => {
+    expect(reducer({
+      isBlocked: false,
+    }, {
+      type: ActionType.BLOCKED_FORM,
+      payload: true
+    })).toEqual({isBlocked: true});
+  });
+
+  it(`Reducer should change Message Server`, () => {
+    expect(reducer({
+      serverMessage: null,
+    }, {
+      type: ActionType.LOAD_MESSAGE_SERVER,
+      payload: EmptyStr
+    })).toEqual({serverMessage: EmptyStr});
+  });
+
   it(`Reducer should change reviews`, () => {
     expect(reducer({
       reviews: [],
@@ -99,16 +129,33 @@ describe(`test work Action Creators`, () => {
       payload: offers,
     });
   });
+  it(`Action creator for setBlocking`, () => {
+    expect(ActionCreator.setBlocking(true)).toEqual({
+      type: ActionType.BLOCKED_FORM,
+      payload: true,
+    });
+  });
+  it(`Action creator for loadServerMessage`, () => {
+    expect(ActionCreator.loadServerMessage(EmptyStr)).toEqual({
+      type: ActionType.LOAD_MESSAGE_SERVER,
+      payload: EmptyStr,
+    });
+  });
   it(`Action creator for reviews returns correct action`, () => {
     expect(ActionCreator.loadReviews(reviews)).toEqual({
       type: ActionType.LOAD_REVIEWS,
       payload: reviews,
     });
   });
-
   it(`Action creator for nearOffers offer returns correct action`, () => {
     expect(ActionCreator.loadNearOffers(offers)).toEqual({
       type: ActionType.LOAD_NEAR_OFFERS,
+      payload: offers,
+    });
+  });
+  it(`Action creator for loadFavoriteHotels`, () => {
+    expect(ActionCreator.loadFavoriteHotels(offers)).toEqual({
+      type: ActionType.LOAD_FAVORITE_HOTELS,
       payload: offers,
     });
   });
@@ -134,6 +181,25 @@ describe(`test work Operation`, () => {
       });
   });
 
+  it(`Should make a correct API call to /hotels/nearby`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const offersNearLoader = Operations.loadNearOffers(3);
+
+    apiMock
+      .onGet(`/hotels/3/nearby`)
+      .reply(200, [{fake: true}]);
+
+    return offersNearLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_NEAR_OFFERS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
   it(`Should make a correct API call to /comments`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -148,6 +214,25 @@ describe(`test work Operation`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_REVIEWS,
+          payload: [{fake: true}],
+        });
+      });
+  });
+
+  it(`Should make a correct API call to /favorite`, function () {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewsLoader = Operations.loadFavoriteHotels();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, [{fake: true}]);
+
+    return reviewsLoader(dispatch, () => {}, api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITE_HOTELS,
           payload: [{fake: true}],
         });
       });

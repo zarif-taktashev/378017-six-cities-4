@@ -183,13 +183,13 @@ const cutReviews = (reviews) => {
   return reviews.slice(0, Slicer.REVIEWS);
 };
 
-const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`,
+const MONTH_NAMES = [`January`, `February`, `March`, `April`, `May`, `June`,
   `July`, `August`, `September`, `October`, `November`, `December`
 ];
 
 const getDate = (date) => {
   const dateNow = new Date(date);
-  return `${monthNames[dateNow.getMonth()]} ${dateNow.getFullYear()}`;
+  return `${MONTH_NAMES[dateNow.getMonth()]} ${dateNow.getFullYear()}`;
 };
 
 const SortOffersType = {

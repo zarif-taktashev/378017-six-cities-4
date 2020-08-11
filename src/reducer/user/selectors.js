@@ -9,3 +9,11 @@ export const getAuthorizationStatus = (state) => {
 export const getUser = (state) => {
   return state[NAME_SPACE].user;
 };
+
+export const getLoadingStatus = (state) => {
+  return state[NAME_SPACE].isLoad;
+};
+
+export const getLoginError = (state) => {
+  return state[NAME_SPACE].loginError;
+};

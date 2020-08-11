@@ -2,10 +2,10 @@ export const reviewModel = (data) => {
   return {
     id: data.id,
     user: {
-      avatar: data.user.useravatar_url,
-      id: data.user.commentuserid,
-      super: data.user.useris_pro,
-      name: data.user.username
+      avatar: data.user.avatar_url,
+      id: data.user.id,
+      super: data.user.is_pro,
+      name: data.user.name
     },
     rating: data.rating,
     date: data.date,

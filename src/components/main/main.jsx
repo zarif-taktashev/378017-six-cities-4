@@ -5,6 +5,7 @@ import withCardList from "../../hocs/with-card-list/with-card-list";
 import withSorting from '../../hocs/with-sorting/with-sorting.js';
 import Map from "../map/map.jsx";
 import Sorting from '../sorting/sorting.jsx';
+import ErrorMessage from "../error-message/error-message.jsx";
 import Towers from "../towers/towers.jsx";
 import Header from "../header/header.jsx";
 import MainEmpty from "../main-empty/main-empty.jsx";
@@ -47,6 +48,12 @@ const MainComponent = (props) => {
               currentCity={activeCity}
             />
           }
+          {!!props.loginError && <ErrorMessage
+            loginError={props.loginError}
+          />}
+          {!!props.messageServer && props.messageServer.status !== 200 ? <ErrorMessage
+            loginError={props.messageServer.data.error}
+          /> : ``}
         </div>
       </main>
     </div>
@@ -55,6 +62,7 @@ const MainComponent = (props) => {
 
 MainComponent.propTypes = {
   onSelectCity: PropTypes.func.isRequired,
+  loginError: PropTypes.string,
   hoverOffer: offerProp.HoverOffer,
   onCardHover: PropTypes.func.isRequired,
   onTitleClick: PropTypes.func.isRequired,
@@ -65,6 +73,12 @@ MainComponent.propTypes = {
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: offerProp.offers,
   onFavoriteOfferClick: PropTypes.func.isRequired,
+  messageServer: PropTypes.shape({
+    status: PropTypes.number,
+    data: PropTypes.shape({
+      error: PropTypes.string,
+    })
+  }),
   user: userProps.user
 };
 

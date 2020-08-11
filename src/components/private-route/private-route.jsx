@@ -8,9 +8,8 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 
 const PrivateRoute = (props) => {
-  const {render, path, exact, authorizationStatus} = props;
-
-  return (
+  const {render, path, exact, authorizationStatus, isLoad} = props;
+  return (isLoad ? <div>Loading...</div> :
     <Route
       path={path}
       exact={exact}
@@ -28,6 +27,7 @@ const PrivateRoute = (props) => {
 PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   exact: PropTypes.bool.isRequired,
+  isLoad: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
   render: PropTypes.func.isRequired,
 };

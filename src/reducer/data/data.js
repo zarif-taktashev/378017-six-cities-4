@@ -1,5 +1,8 @@
 import {extend} from '../../utils';
 import {offerAdapter} from "../../adapter/offers.js";
+import {serverMsg} from "../../adapter/serverMsg.js";
+import {AppRoute} from "../../const";
+import history from "../../history.js";
 
 const initialState = {
   offers: [],
@@ -52,24 +55,57 @@ const Operations = {
       .then((response) => {
         dispatch(ActionCreator.loadHotels(response.data.map((item) => offerAdapter(item))));
         return response.data[0].city.name;
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
+        history.push(AppRoute.MAIN);
+        throw err;
       });
   },
   loadReviews: (id) => (dispatch, getState, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
         dispatch(ActionCreator.loadReviews(response.data));
+      })
+      .catch((err) => {
+        err.message = `Comments no found. Server`;
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
+        history.push(AppRoute.MAIN);
+        throw err;
       });
   },
   loadNearOffers: (id) => (dispatch, getState, api) => {
     return api.get(`/hotels/${id}/nearby`)
       .then((response) => {
         dispatch(ActionCreator.loadNearOffers(response.data));
+      })
+      .catch((err) => {
+        err.message = `Near Hotels no found. Server Error`;
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
+        history.push(AppRoute.MAIN);
+        throw err;
       });
   },
   loadFavoriteHotels: () => (dispatch, getState, api) => {
     return api.get(`/favorite`)
       .then((response) => {
         dispatch(ActionCreator.loadFavoriteHotels(response.data));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
+        throw err;
       });
   },
   sendReview: (id, review) => (dispatch, getState, api) => {
@@ -78,12 +114,15 @@ const Operations = {
     return api.post(`/comments/${id}`, review)
       .then((response) => {
         dispatch(ActionCreator.loadReviews(response.data));
-        dispatch(ActionCreator.loadMessageServer(response));
+        dispatch(ActionCreator.loadServerMessage(serverMsg(response)));
         dispatch(ActionCreator.setBlocking(false));
       })
       .catch((err) => {
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
         dispatch(ActionCreator.setBlocking(false));
-
         throw err;
       });
   },
@@ -91,7 +130,15 @@ const Operations = {
     return api.post(`/favorite/${id}/${+!status}`)
       .then(() => {
         dispatch(Operations.loadHotels());
+        dispatch(Operations.loadNearOffers(id));
         dispatch(Operations.loadFavoriteHotels());
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.loadServerMessage(serverMsg(err)));
+        setTimeout(() => {
+          dispatch(ActionCreator.loadServerMessage(null));
+        }, 5000);
+        throw err;
       });
   }
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {Link} from 'react-router-dom';
+import ErrorMessage from "../error-message/error-message.jsx";
 import Card from '../card/card.jsx';
 import Header from '../header/header.jsx';
 import NoFavorites from '../no-favorites/no-favorites.jsx';
@@ -23,7 +24,9 @@ const Favorites = (props) => {
         onMainHandler={() => {}}
         user={user}
       />
-
+      {props.messageServer && <ErrorMessage
+        loginError={props.messageServer.data.error}
+      />}
       {sortFavoriteHotels.length ?
         <React.Fragment>
           <main className="page__main page__main--favorites">
@@ -74,6 +77,13 @@ const Favorites = (props) => {
 Favorites.propTypes = {
   favoriteHotels: offerProp.offers,
   onFavoriteOfferClick: PropTypes.func.isRequired,
+  loginError: PropTypes.string,
+  messageServer: PropTypes.shape({
+    status: PropTypes.number,
+    data: PropTypes.shape({
+      error: PropTypes.string,
+    })
+  }),
   user: userProps.user
 };
 

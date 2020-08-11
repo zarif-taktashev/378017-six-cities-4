@@ -18,7 +18,7 @@ const withReviewForm = (Component) => {
     }
 
     componentDidUpdate(prevProps) {
-      if (prevProps.messageServer !== this.props.messageServer && this.props.messageServer.status === ResponseStatus.SUCCESS) {
+      if (this.props.messageServer && prevProps.messageServer !== this.props.messageServer && this.props.messageServer.status === ResponseStatus.SUCCESS) {
         this.reset();
       }
     }

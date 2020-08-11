@@ -74,6 +74,7 @@ describe(`app-test`, () => {
           activeCity={activeCity}
           onTitleClick={() => {}}
           isBlocked={true}
+          isLoad={true}
           nearOffers={offers}
           sortType={`Popular`}
           reviews={reviews}

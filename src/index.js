@@ -25,12 +25,10 @@ const store = createStore(
         applyMiddleware(thunk.withExtraArgument(api))
     )
 );
-
 store.dispatch(Operations.loadHotels())
 .then((city) => store.dispatch(SiteActionCreator.selectCity(city)));
 store.dispatch(UserOperations.checkAuth())
 .then(() => store.dispatch(Operations.loadFavoriteHotels()));
-
 ReactDOM.render(
     <Provider store={store}>
       <App />

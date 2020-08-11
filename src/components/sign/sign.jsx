@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ErrorMessage from "../error-message/error-message.jsx";
 import Header from "../header/header.jsx";
 import {userProps} from "../../const.js";
 
@@ -52,6 +53,9 @@ class Sign extends React.PureComponent {
             </section>
           </div>
         </main>
+        {!!this.props.loginError && <ErrorMessage
+          loginError={this.props.loginError}
+        />}
       </div>
     );
   }
@@ -59,6 +63,7 @@ class Sign extends React.PureComponent {
 
 Sign.propTypes = {
   onLoginSubmit: PropTypes.func.isRequired,
+  loginError: PropTypes.string,
   user: userProps.user
 };
 

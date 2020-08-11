@@ -5,7 +5,6 @@ import {getDate, reviewProps} from '../../const';
 const Review = ({reviews}) => {
 
   const date = getDate(reviews.date);
-
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

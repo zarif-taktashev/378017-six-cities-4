@@ -8,21 +8,33 @@ import Property from "../property/property.jsx";
 import Favorites from "../favorites/favorites.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
 import {ActionCreator as SiteCreator} from "../../reducer/site/site.js";
-import {getTowers, getHotelsByCity, getFavoriteHotels, getMessageServer, getReviews, getNearOffers, getBlocking} from "../../reducer/data/selectors.js";
+import {getTowers, getHotelsByCity, getFavoriteHotels, getMessageServer} from "../../reducer/data/selectors.js";
 import {Operations as DataOperation} from "../../reducer/data/data.js";
 import {getActiveCity, getSortType, getHoverOffer} from "../../reducer/site/selectors.js";
-import {getAuthorizationStatus, getUser} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUser, getLoadingStatus, getLoginError} from "../../reducer/user/selectors.js";
 import {Operations as UserOperations} from "../../reducer/user/user.js";
-import {offerProp, AppRoute, AuthorizationStatus, userProps, reviewProps} from "../../const.js";
+import {offerProp, AppRoute, AuthorizationStatus, userProps} from "../../const.js";
 import history from "../../history";
 
 const App = (props) => {
-  const {offers, onSelectCity, messageServer, hoverOffer, onReviewSubmit, activeCity, isBlocked, towers, onCardHover, authorizationStatus, onLoginSubmit, user, favoriteHotels, onFavoriteOfferClick, onTitleClick, reviews, nearOffers, onSortChange, sortType} = props;
+  const {offers, loginError, messageServer, isLoad, onSelectCity, hoverOffer, activeCity, towers, onCardHover, authorizationStatus, onLoginSubmit, user, favoriteHotels, onFavoriteOfferClick, onTitleClick, onSortChange, sortType} = props;
   return (
     <Router
       history={history}
     >
       <Switch>
+        <Route path={`/offer/:id`} render={(url) => {
+          return (
+            <Property
+              openedOfferId={url.match.params.id}
+              offers={offers}
+              messageServer={messageServer}
+              loginError={loginError}
+              onFavoriteOfferClick={onFavoriteOfferClick}
+              onMainHandler={() => {}}
+            />);
+        }}>
+        </Route>
         <Route exact path={AppRoute.MAIN}>
           <MainComponent onMainHandler={() => {}}
             onSelectCity={onSelectCity}
@@ -31,6 +43,8 @@ const App = (props) => {
             onCardHover={onCardHover}
             onTitleClick={onTitleClick}
             activeCity={activeCity}
+            loginError={loginError}
+            messageServer={messageServer}
             onFavoriteOfferClick={onFavoriteOfferClick}
             towers={towers}
             onSortChange={onSortChange}
@@ -38,31 +52,17 @@ const App = (props) => {
             user={user}
           />
         </Route>
-        <Route exact={true} path={`${AppRoute.OFFER}/:id`} render={({match}) => {
-          const foundOffer = offers.find((item) => item.id === Number(match.params.id));
-          return (foundOffer ?
-            <Property
-              offer={foundOffer}
-              nearOffers={nearOffers}
-              reviews={reviews}
-              onReviewSubmit={onReviewSubmit}
-              onMainHandler={() => {}}
-              isBlocked={isBlocked}
-              onTitleClick={onTitleClick}
-              onFavoriteOfferClick={onFavoriteOfferClick}
-              messageServer={messageServer}
-              user={user}
-            /> : null);
-        }}/>
         <Route exact path={AppRoute.LOGIN}>
           {authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.MAIN}/>
             :
             <Sign
               onLoginSubmit={onLoginSubmit}
+              loginError={loginError}
               user={user}
             />}
         </Route>
         <PrivateRoute exact path={AppRoute.FAVORITES}
+          isLoad={isLoad}
           render={() => {
             return (
               <Favorites
@@ -71,6 +71,7 @@ const App = (props) => {
                 onFavoriteOfferClick={onFavoriteOfferClick}
                 onCardHover={onCardHover}
                 onTitleClick={onTitleClick}
+                messageServer={messageServer}
               />
             );
           }}
@@ -87,39 +88,36 @@ App.propTypes = {
   onCardHover: PropTypes.func.isRequired,
   onLoginSubmit: PropTypes.func.isRequired,
   hoverOffer: offerProp.HoverOffer,
-  isBlocked: PropTypes.bool.isRequired,
-  onReviewSubmit: PropTypes.func.isRequired,
   onFavoriteOfferClick: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(reviewProps.review).isRequired,
   activeCity: PropTypes.string.isRequired,
   towers: PropTypes.arrayOf(PropTypes.string).isRequired,
   offers: offerProp.offers,
-  nearOffers: offerProp.offers,
+  isLoad: PropTypes.bool.isRequired,
   user: userProps.user,
   favoriteHotels: offerProp.offers,
   onSortChange: PropTypes.func.isRequired,
   sortType: PropTypes.string.isRequired,
+  loginError: PropTypes.string,
   messageServer: PropTypes.shape({
     status: PropTypes.number,
     data: PropTypes.shape({
       error: PropTypes.string,
     })
-  })
+  }),
 };
 
 
 const mapStateToProps = (state) => {
   return {
     offers: getHotelsByCity(state),
-    nearOffers: getNearOffers(state),
+    messageServer: getMessageServer(state),
     activeCity: getActiveCity(state),
     towers: getTowers(state),
+    loginError: getLoginError(state),
     hoverOffer: getHoverOffer(state),
     user: getUser(state),
-    isBlocked: getBlocking(state),
-    messageServer: getMessageServer(state),
-    reviews: getReviews(state),
+    isLoad: getLoadingStatus(state),
     favoriteHotels: getFavoriteHotels(state),
     authorizationStatus: getAuthorizationStatus(state),
     sortType: getSortType(state),
@@ -129,9 +127,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onSelectCity: (city) => {
     dispatch(SiteCreator.selectCity(city));
-  },
-  onReviewSubmit(id, review) {
-    dispatch(DataOperation.sendReview(id, review));
   },
   onTitleClick(offer) {
     dispatch(DataOperation.loadNearOffers(offer.id))
